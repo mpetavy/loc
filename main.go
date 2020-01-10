@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"flag"
+	"fmt"
 	"github.com/mpetavy/common"
 	"io/ioutil"
 	"path/filepath"
@@ -19,7 +20,7 @@ type fileitem struct {
 var paths pathlist
 
 func init() {
-	common.Init("1.0.0", "2018", "Line of code counter", "mpetavy", common.APACHE, false, nil, nil, run, 0)
+	common.Init("1.0.0", "2018", "Line of code counter", "mpetavy", fmt.Sprintf("https://github.com/mpetavy/%s", common.Title()), common.APACHE, false, nil, nil, run, 0)
 	flag.Var(&paths, "i", "include directory or file")
 }
 
@@ -77,7 +78,7 @@ func run() error {
 
 		cc += c
 
-		common.Info("Loc %s: %d", fileItem.fullname,c)
+		common.Info("Loc %s: %d", fileItem.fullname, c)
 	}
 
 	common.Info("Sum: %d", cc)
