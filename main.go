@@ -20,7 +20,7 @@ type fileitem struct {
 var paths pathlist
 
 func init() {
-	common.Init("1.0.0", "2018", "Line of code counter", "mpetavy", fmt.Sprintf("https://github.com/mpetavy/%s", common.Title()), common.APACHE, nil, nil, run, 0)
+	common.Init(false, "1.0.0", "2018", "Line of code counter", "mpetavy", fmt.Sprintf("https://github.com/mpetavy/%s", common.Title()), common.APACHE, nil, nil, run, 0)
 	flag.Var(&paths, "i", "include directory or file")
 }
 
