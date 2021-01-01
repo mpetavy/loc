@@ -55,7 +55,7 @@ func run() error {
 			cleanDir = filepath.Dir(cleanDir)
 		}
 
-		err := common.WalkFilepath(cleanDir, *recursive, func(file string) error {
+		err := common.WalkFilepath(cleanDir, *recursive, false, func(file string) error {
 			var err error
 
 			b := mask == ""
