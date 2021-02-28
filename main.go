@@ -5,7 +5,7 @@ import (
 	"flag"
 	"fmt"
 	"github.com/mpetavy/common"
-	"io/ioutil"
+	"os"
 	"path/filepath"
 	"strings"
 )
@@ -84,7 +84,7 @@ func run() error {
 
 	cc := 0
 	for _, fileItem := range files {
-		ba, err := ioutil.ReadFile(fileItem.fullname)
+		ba, err := os.ReadFile(fileItem.fullname)
 		if common.Error(err) {
 			return err
 		}
