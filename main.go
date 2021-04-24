@@ -23,7 +23,7 @@ var (
 )
 
 func init() {
-	common.Init(false, "1.0.1", "", "2018", "Line of code counter", "mpetavy", fmt.Sprintf("https://github.com/mpetavy/%s", common.Title()), common.APACHE, nil, nil, nil, run, 0)
+	common.Init(false, "1.0.1", "", "", "2018", "Line of code counter", "mpetavy", fmt.Sprintf("https://github.com/mpetavy/%s", common.Title()), common.APACHE, nil, nil, nil, run, 0)
 	flag.Var(&paths, "i", "include directory or file")
 	recursive = flag.Bool("r", false, "recursive file scanning")
 }
