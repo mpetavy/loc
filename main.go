@@ -6,16 +6,10 @@ import (
 	"fmt"
 	"github.com/mpetavy/common"
 	"os"
-	"path/filepath"
 	"strings"
 )
 
 type pathlist []string
-
-type fileitem struct {
-	fullname string
-	relname  string
-}
 
 var (
 	paths     pathlist
@@ -41,38 +35,12 @@ func (i *pathlist) Set(value string) error {
 }
 
 func run() error {
-	files := make([]fileitem, 0)
+	files := make([]string, 0)
 
 	for _, dir := range paths {
-		cleanDir := common.CleanPath(dir)
-		mask := ""
-
-		common.Debug("dir: %s", cleanDir)
-		common.Debug("mask: %s", mask)
-
-		if common.ContainsWildcard(cleanDir) {
-			mask = filepath.Base(cleanDir)
-			cleanDir = filepath.Dir(cleanDir)
-		}
-
-		err := common.WalkFilepath(cleanDir, *recursive, false, func(file string) error {
-			var err error
-
-			b := mask == ""
-			if !b {
-				b, err = common.EqualWildcards(filepath.Base(file), mask)
-				if common.Error(err) {
-					return err
-				}
-			}
-
-			if b {
-				common.Debug("found file: %s", file)
-				files = append(files, fileitem{
-					fullname: file,
-					relname:  file[len(filepath.Dir(cleanDir))+1:],
-				})
-			}
+		err := common.WalkFilepath(dir, *recursive, false, func(file string) error {
+			common.Debug("found file: %s", file)
+			files = append(files, file)
 
 			return nil
 		})
@@ -83,8 +51,8 @@ func run() error {
 	}
 
 	cc := 0
-	for _, fileItem := range files {
-		ba, err := os.ReadFile(fileItem.fullname)
+	for _, file := range files {
+		ba, err := os.ReadFile(file)
 		if common.Error(err) {
 			return err
 		}
@@ -99,7 +67,7 @@ func run() error {
 
 		cc += c
 
-		common.Info("Loc %s: %d", fileItem.fullname, c)
+		common.Info("%s: %d", file, c)
 	}
 
 	common.Info("Sum: %d", cc)
