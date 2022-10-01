@@ -38,7 +38,11 @@ func run() error {
 	files := make([]string, 0)
 
 	for _, dir := range paths {
-		fw := common.NewFilewalker(dir, *recursive, false, func(file string) error {
+		fw := common.NewFilewalker(dir, *recursive, false, func(file string, f os.FileInfo) error {
+			if f.IsDir() {
+				return nil
+			}
+
 			common.Debug("found file: %s", file)
 			files = append(files, file)
 
