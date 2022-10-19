@@ -38,7 +38,7 @@ func run() error {
 	files := make([]string, 0)
 
 	for _, dir := range paths {
-		fw := common.NewFilewalker(dir, *recursive, false, func(file string, f os.FileInfo) error {
+		fw, err := common.NewFilewalker(dir, *recursive, false, func(file string, f os.FileInfo) error {
 			if f.IsDir() {
 				return nil
 			}
@@ -48,8 +48,11 @@ func run() error {
 
 			return nil
 		})
+		if common.Error(err) {
+			return err
+		}
 
-		err := fw.Run()
+		err = fw.Run()
 		if common.Error(err) {
 			return err
 		}
