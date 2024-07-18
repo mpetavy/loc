@@ -82,5 +82,5 @@ func run() error {
 }
 
 func main() {
-	common.Run([]string{"i"})
+	common.Run([]string{"f"})
 }
