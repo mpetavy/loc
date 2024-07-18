@@ -21,7 +21,7 @@ var resources embed.FS
 
 func init() {
 	common.Init("", "", "", "", "Line of code counter", "", "", "", &resources, nil, nil, run, 0)
-	flag.Var(&paths, "i", "include directory or file")
+	flag.Var(&paths, "f", "include directory or file")
 	recursive = flag.Bool("r", false, "recursive file scanning")
 }
 
