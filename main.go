@@ -9,10 +9,8 @@ import (
 	"strings"
 )
 
-type pathlist []string
-
 var (
-	paths     pathlist
+	paths     common.MultiValueFlag
 	recursive *bool
 )
 
@@ -23,18 +21,6 @@ func init() {
 	common.Init("", "", "", "", "Line of code counter", "", "", "", &resources, nil, nil, run, 0)
 	flag.Var(&paths, "f", "include directory or file")
 	recursive = flag.Bool("r", false, "recursive file scanning")
-}
-
-func (i *pathlist) String() string {
-	if i == nil {
-		return ""
-	}
-	return strings.Join(paths, ",")
-}
-
-func (i *pathlist) Set(value string) error {
-	*i = append(*i, value)
-	return nil
 }
 
 func run() error {
